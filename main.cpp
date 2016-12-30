@@ -1,4 +1,4 @@
-//compiled in G++ 5.1.0
+//successfully compiled in G++ 5.1.0 and Visual Studio 2015
 #include <iostream>
 #include "Card.hpp"
 #include "Board.hpp"
