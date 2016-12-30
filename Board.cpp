@@ -1,6 +1,5 @@
 #include "Board.hpp"
 #include <thread>
-#include <future>
 #include <random>
 #include <time.h>
 
@@ -23,7 +22,7 @@ void Board::populateDeck(){
     }
 }
 
-double Board::evaluateHand(std::vector<Card> knownCards, int numOtherPlayers, int numSimulations){    
+double Board::evaluateHand(std::vector<Card>& knownCards, int numOtherPlayers, int numSimulations){    
     
     numOtherPlayers++;//increment by one since index 0 is the hand we are evaluating
     
@@ -57,17 +56,13 @@ double Board::evaluateHand(std::vector<Card> knownCards, int numOtherPlayers, in
         threads.at(i).join();
     }
     
-    std::cout << std::endl;
     double finalValue = 0;
     for(unsigned int i = 0; i < numWins.size(); i++){
         finalValue += numWins.at(i);
-        std::cout << "currentVal->" << finalValue << std::endl;
     }
     
-    std::cout << std::endl << "finalVal->" << finalValue;
-    std::cout << std::endl << "finalPercentage->" << (finalValue/numSimulations);
+    return (finalValue/numSimulations) * 100;
     
-    return 0;
 }
 
 void Board::simulateGame(int numSims, std::vector<Card> knownCards, int numOtherPlayers, unsigned int& timesWon){
@@ -211,7 +206,7 @@ Card Board::takeRandomCardFromDeck(std::vector<Card>& deck){
     
 }
 
-Card Board::takeKnownCardFromDeck(std::vector<Card>& deck, Card cardToTake){
+Card Board::takeKnownCardFromDeck(std::vector<Card>& deck, Card& cardToTake){
     
     for(unsigned int i = 0; i < deck.size(); i++){//cycle through our vector and delete the card once it has been found
         if(deck.at(i) == cardToTake){
@@ -224,7 +219,7 @@ Card Board::takeKnownCardFromDeck(std::vector<Card>& deck, Card cardToTake){
 }
 
 //this function takes a vector of 7 cards and finds the best possible hand + returns hand strength value
-int Board::parseHand(std::vector<Card> hand){
+int Board::parseHand(std::vector<Card>& hand){
     
     //find if royal flush
     bool valuesMatch = true;

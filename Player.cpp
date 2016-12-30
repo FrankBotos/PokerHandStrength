@@ -22,7 +22,7 @@ int Player::getHSV(){
     return HSV;
 }
 
-std::vector<Card> Player::getHand(){
+std::vector<Card>& Player::getHand(){
     return hand;
 }
 

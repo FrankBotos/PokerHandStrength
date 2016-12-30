@@ -14,7 +14,7 @@ public:
     
     //getters
     Card getCard(int index);
-    std::vector<Card> getHand();
+    std::vector<Card>& getHand();
     int getHSV();
     
     //setter
